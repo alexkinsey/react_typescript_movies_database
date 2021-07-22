@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import API from '../../API';
 // Components
 import Thumb from '../Thumb';
-import Rate from '../Rate'
+import Rate from '../Rate';
 // Config
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../config';
 // Image
@@ -10,12 +11,21 @@ import NoImage from '../../images/no_image.jpg';
 import { Wrapper, Content, Text } from './MovieInfo.styles';
 // Types
 import { MovieState } from '../../hooks/useMovieFetch';
+// Context
+import { Context } from '../../context';
 
 type Props = {
   movie: MovieState;
 };
 
 const MovieInfo: React.FC<Props> = ({ movie }) => {
+  const [user] = useContext(Context);
+
+  const handleRating = async (value: any) => {
+    const rate = await API.rateMovie(user.sessionId, movie.id, value);
+    console.log(rate)
+  };
+
   return (
     <Wrapper backdrop={movie.backdrop_path}>
       <Content>
@@ -40,10 +50,12 @@ const MovieInfo: React.FC<Props> = ({ movie }) => {
               ))}
             </div>
           </div>
-          <div>
-            <p>Rate Movie:</p>
-            <Rate />
-          </div>
+          {user && (
+            <div>
+              <p>Rate Movie:</p>
+              <Rate callback={handleRating} />
+            </div>
+          )}
         </Text>
       </Content>
     </Wrapper>
