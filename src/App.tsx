@@ -1,6 +1,7 @@
 import React from 'react';
 
 // ROUTING
+// @ts-ignore
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // COMPONENTS
@@ -12,7 +13,7 @@ import NotFound from './components/NotFound';
 // STYLES
 import { GlobalStyle } from './GlobalStyle';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Router>
       <Header />
