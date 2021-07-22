@@ -18,9 +18,9 @@ import { useMovieFetch } from '../hooks/useMovieFetch';
 // IMAGE
 import NoImage from '../images/no_image.jpg';
 
-const Movie = () => {
+const Movie: React.FC = () => {
   const { id } = useParams();
-  const { state: movie, loading, error } = useMovieFetch(id);
+  const { state: movie, loading, error } = useMovieFetch(Number(id));
 
   // console.log(movie);
 
